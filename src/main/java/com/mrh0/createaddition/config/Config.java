@@ -22,46 +22,46 @@ public class Config {
 	public static ForgeConfigSpec COMMON_CONFIG;
 
 	public static ForgeConfigSpec.IntValue ELECTRIC_MOTOR_RPM_RANGE;
-	public static ForgeConfigSpec.LongValue ELECTRIC_MOTOR_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue ELECTRIC_MOTOR_MAX_INPUT;
 	public static ForgeConfigSpec.IntValue ELECTRIC_MOTOR_MINIMUM_CONSUMPTION;
-	public static ForgeConfigSpec.LongValue ELECTRIC_MOTOR_CAPACITY;
+	public static ForgeConfigSpec.IntValue ELECTRIC_MOTOR_CAPACITY;
 	public static ForgeConfigSpec.IntValue FE_RPM;
 	public static ForgeConfigSpec.IntValue MAX_STRESS;
 
-	public static ForgeConfigSpec.LongValue ALTERNATOR_MAX_OUTPUT;
-	public static ForgeConfigSpec.LongValue ALTERNATOR_CAPACITY;
+	public static ForgeConfigSpec.IntValue ALTERNATOR_MAX_OUTPUT;
+	public static ForgeConfigSpec.IntValue ALTERNATOR_CAPACITY;
 	public static ForgeConfigSpec.DoubleValue ALTERNATOR_EFFICIENCY;
 
 	public static ForgeConfigSpec.IntValue ROLLING_MILL_PROCESSING_DURATION;
 	public static ForgeConfigSpec.IntValue ROLLING_MILL_STRESS;
 
-	public static ForgeConfigSpec.LongValue SMALL_CONNECTOR_MAX_INPUT;
-	public static ForgeConfigSpec.LongValue SMALL_CONNECTOR_MAX_OUTPUT;
+	public static ForgeConfigSpec.IntValue SMALL_CONNECTOR_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue SMALL_CONNECTOR_MAX_OUTPUT;
 	public static ForgeConfigSpec.IntValue SMALL_CONNECTOR_MAX_LENGTH;
 
-	public static ForgeConfigSpec.LongValue SMALL_LIGHT_CONNECTOR_CONSUMPTION;
+	public static ForgeConfigSpec.IntValue SMALL_LIGHT_CONNECTOR_CONSUMPTION;
 
-	public static ForgeConfigSpec.LongValue LARGE_CONNECTOR_MAX_INPUT;
-	public static ForgeConfigSpec.LongValue LARGE_CONNECTOR_MAX_OUTPUT;
+	public static ForgeConfigSpec.IntValue LARGE_CONNECTOR_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue LARGE_CONNECTOR_MAX_OUTPUT;
 	public static ForgeConfigSpec.IntValue LARGE_CONNECTOR_MAX_LENGTH;
 
 	public static ForgeConfigSpec.BooleanValue CONNECTOR_IGNORE_FACE_CHECK;
 	public static ForgeConfigSpec.BooleanValue CONNECTOR_ALLOW_PASSIVE_IO;
 
-	public static ForgeConfigSpec.LongValue ACCUMULATOR_MAX_INPUT;
-	public static ForgeConfigSpec.LongValue ACCUMULATOR_MAX_OUTPUT;
-	public static ForgeConfigSpec.LongValue ACCUMULATOR_CAPACITY;
+	public static ForgeConfigSpec.IntValue ACCUMULATOR_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue ACCUMULATOR_MAX_OUTPUT;
+	public static ForgeConfigSpec.IntValue ACCUMULATOR_CAPACITY;
 	public static ForgeConfigSpec.IntValue ACCUMULATOR_MAX_HEIGHT;
 	public static ForgeConfigSpec.IntValue ACCUMULATOR_MAX_WIDTH;
 
-	public static ForgeConfigSpec.LongValue PEI_MAX_INPUT;
-	public static ForgeConfigSpec.LongValue PEI_MAX_OUTPUT;
+	public static ForgeConfigSpec.IntValue PEI_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue PEI_MAX_OUTPUT;
 
-	public static ForgeConfigSpec.LongValue TESLA_COIL_MAX_INPUT;
-	public static ForgeConfigSpec.LongValue TESLA_COIL_CHARGE_RATE;
-	public static ForgeConfigSpec.LongValue TESLA_COIL_RECIPE_CHARGE_RATE;
-	public static ForgeConfigSpec.LongValue TESLA_COIL_CAPACITY;
-	public static ForgeConfigSpec.LongValue TESLA_COIL_HURT_ENERGY_REQUIRED;
+	public static ForgeConfigSpec.IntValue TESLA_COIL_MAX_INPUT;
+	public static ForgeConfigSpec.IntValue TESLA_COIL_CHARGE_RATE;
+	public static ForgeConfigSpec.IntValue TESLA_COIL_RECIPE_CHARGE_RATE;
+	public static ForgeConfigSpec.IntValue TESLA_COIL_CAPACITY;
+	public static ForgeConfigSpec.IntValue TESLA_COIL_HURT_ENERGY_REQUIRED;
 	public static ForgeConfigSpec.IntValue TESLA_COIL_HURT_DMG_MOB;
 	public static ForgeConfigSpec.IntValue TESLA_COIL_HURT_DMG_PLAYER;
 	public static ForgeConfigSpec.IntValue TESLA_COIL_HURT_RANGE;
@@ -92,19 +92,19 @@ public class Config {
 				.defineInRange("motor_min_consumption", 8, 0, Integer.MAX_VALUE);
 
 		ELECTRIC_MOTOR_MAX_INPUT = COMMON_BUILDER.comment("Electric Motor max input in E (Energy transfer not consumption).")
-				.defineInRange("motor_max_input", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("motor_max_input", 5000, 0, Integer.MAX_VALUE);
 
 		ELECTRIC_MOTOR_CAPACITY = COMMON_BUILDER.comment("Electric Motor internal capacity in E.")
-				.defineInRange("motor_capacity", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("motor_capacity", 5000, 0, Integer.MAX_VALUE);
 		COMMON_BUILDER.pop();
 
 
 		COMMON_BUILDER.comment("Alternator").push(CATAGORY_ALTERNATOR);
 		ALTERNATOR_MAX_OUTPUT = COMMON_BUILDER.comment("Alternator max input in E (Energy transfer, not generation).")
-				.defineInRange("generator_max_output", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("generator_max_output", 5000, 0, Integer.MAX_VALUE);
 
 		ALTERNATOR_CAPACITY = COMMON_BUILDER.comment("Alternator internal capacity in E.")
-				.defineInRange("generator_capacity", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("generator_capacity", 5000, 0, Integer.MAX_VALUE);
 		ALTERNATOR_EFFICIENCY = COMMON_BUILDER.comment("Alternator efficiency relative to base conversion rate.")
 				.defineInRange("generator_efficiency", 0.75d, 0.01d, 1.0d);
 		COMMON_BUILDER.pop();
@@ -121,23 +121,23 @@ public class Config {
 
 		COMMON_BUILDER.comment("Wires").push(CATAGORY_WIRES);
 		SMALL_CONNECTOR_MAX_INPUT = COMMON_BUILDER.comment("Small Connector max input in FE/t (Energy transfer).")
-				.defineInRange("small_connector_max_input", 1000, 0, Long.MAX_VALUE);
+				.defineInRange("small_connector_max_input", 1000, 0, Integer.MAX_VALUE);
 
 		SMALL_CONNECTOR_MAX_OUTPUT = COMMON_BUILDER.comment("Small Connector max output in FE/t (Energy transfer).")
-				.defineInRange("small_connector_max_output", 1000, 0, Long.MAX_VALUE);
+				.defineInRange("small_connector_max_output", 1000, 0, Integer.MAX_VALUE);
 
 		SMALL_CONNECTOR_MAX_LENGTH = COMMON_BUILDER.comment("Small Connector max wire length in blocks.")
 				.defineInRange("small_connector_wire_length", 16, 0, 256);
 
 		SMALL_LIGHT_CONNECTOR_CONSUMPTION = COMMON_BUILDER.comment("Small Connector With Light energy consumption in FE/t.")
-				.defineInRange("small_light_connector_consumption", 1, 0, Long.MAX_VALUE);
+				.defineInRange("small_light_connector_consumption", 1, 0, Integer.MAX_VALUE);
 
 
 		LARGE_CONNECTOR_MAX_INPUT = COMMON_BUILDER.comment("Large Connector max input in FE/t (Energy transfer).")
-				.defineInRange("large_connector_max_input", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("large_connector_max_input", 5000, 0, Integer.MAX_VALUE);
 
 		LARGE_CONNECTOR_MAX_OUTPUT = COMMON_BUILDER.comment("Large Connector max output in FE/t (Energy transfer).")
-				.defineInRange("large_connector_max_output", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("large_connector_max_output", 5000, 0, Integer.MAX_VALUE);
 
 		LARGE_CONNECTOR_MAX_LENGTH = COMMON_BUILDER.comment("Large Connector max wire length in blocks.")
 				.defineInRange("large_connector_wire_length", 32, 0, 256);
@@ -153,13 +153,13 @@ public class Config {
 
 		COMMON_BUILDER.comment("Accumulator").push(CATAGORY_ACCUMULATOR);
 		ACCUMULATOR_MAX_INPUT = COMMON_BUILDER.comment("Accumulator max input in E/t (Energy transfer).")
-				.defineInRange("accumulator_max_input", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("accumulator_max_input", 5000, 0, Integer.MAX_VALUE);
 
 		ACCUMULATOR_MAX_OUTPUT = COMMON_BUILDER.comment("Accumulator max output in E/t (Energy transfer).")
-				.defineInRange("accumulator_max_output", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("accumulator_max_output", 5000, 0, Integer.MAX_VALUE);
 
 		ACCUMULATOR_CAPACITY = COMMON_BUILDER.comment("Accumulator internal capacity per block in E.")
-				.defineInRange("accumulator_capacity", 2_000_000, 0, Long.MAX_VALUE);
+				.defineInRange("accumulator_capacity", 2_000_000, 0, Integer.MAX_VALUE);
 		ACCUMULATOR_MAX_HEIGHT = COMMON_BUILDER.comment("Accumulator max multiblock height.")
 				.defineInRange("accumulator_max_height", 5, 1, 8);
 
@@ -169,28 +169,28 @@ public class Config {
 
 		COMMON_BUILDER.comment("Portable Energy Interface").push(CATAGORY_PEI);
 		PEI_MAX_INPUT = COMMON_BUILDER.comment("PEI max input in E/t (Energy transfer).")
-				.defineInRange("pei_max_input", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("pei_max_input", 5000, 0, Integer.MAX_VALUE);
 
 		PEI_MAX_OUTPUT = COMMON_BUILDER.comment("PEI max output in E/t (Energy transfer).")
-				.defineInRange("pei_max_output", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("pei_max_output", 5000, 0, Integer.MAX_VALUE);
 		COMMON_BUILDER.pop();
 
 
 		COMMON_BUILDER.comment("Tesla Coil").push(CATAGORY_TESLA_COIL);
 		TESLA_COIL_MAX_INPUT = COMMON_BUILDER.comment("Tesla Coil max input in E/t (Energy transfer).")
-				.defineInRange("tesla_coil_max_input", 10000, 0, Long.MAX_VALUE);
+				.defineInRange("tesla_coil_max_input", 10000, 0, Integer.MAX_VALUE);
 
 		TESLA_COIL_CHARGE_RATE = COMMON_BUILDER.comment("Tesla Coil charge rate in E/t.")
-				.defineInRange("tesla_coil_charge_rate", 5000, 0, Long.MAX_VALUE);
+				.defineInRange("tesla_coil_charge_rate", 5000, 0, Integer.MAX_VALUE);
 
 		TESLA_COIL_RECIPE_CHARGE_RATE = COMMON_BUILDER.comment("Tesla Coil charge rate in E/t for recipes.")
-				.defineInRange("tesla_coil_recipe_charge_rate", 2000, 0, Long.MAX_VALUE);
+				.defineInRange("tesla_coil_recipe_charge_rate", 2000, 0, Integer.MAX_VALUE);
 
 		TESLA_COIL_CAPACITY = COMMON_BUILDER.comment("Tesla Coil internal capacity in E.")
-				.defineInRange("tesla_coil_capacity", 40_000, 0, Long.MAX_VALUE);
+				.defineInRange("tesla_coil_capacity", 40_000, 0, Integer.MAX_VALUE);
 
 		TESLA_COIL_HURT_ENERGY_REQUIRED = COMMON_BUILDER.comment("Energy consumed when Tesla Coil is fired (in E).")
-				.defineInRange("tesla_coil_hurt_energy_required", 1000, 0, Long.MAX_VALUE);
+				.defineInRange("tesla_coil_hurt_energy_required", 1000, 0, Integer.MAX_VALUE);
 		TESLA_COIL_HURT_RANGE = COMMON_BUILDER.comment("Hurt range (in blocks/meters).")
 				.defineInRange("tesla_coil_hurt_range", 3, 0, Integer.MAX_VALUE);
 
