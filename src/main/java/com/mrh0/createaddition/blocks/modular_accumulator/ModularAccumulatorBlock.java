@@ -4,7 +4,6 @@ import com.mrh0.createaddition.index.CABlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.blockEntity.ComparatorUtil;
-
 import io.github.fabricators_of_create.porting_lib.block.CustomSoundTypeBlock;
 import io.github.fabricators_of_create.porting_lib.util.LazySoundType;
 import net.minecraft.core.BlockPos;
@@ -234,7 +233,7 @@ public class ModularAccumulatorBlock extends Block implements IWrenchable, IBE<M
 	@Override
 	public SoundType getSoundType(BlockState state, LevelReader world, BlockPos pos, Entity entity) {
 		SoundType soundType = super.getSoundType(state);
-		if (entity != null && entity.getExtraCustomData()
+		if (entity != null && entity.getCustomData()
 			.contains("SilenceTankSound"))
 			return SILENCED_METAL;
 		return soundType;

@@ -1,6 +1,7 @@
 package com.mrh0.createaddition.recipe.rolling;
 
 import com.mrh0.createaddition.CreateAddition;
+import com.mrh0.createaddition.compat.emi.EmiRollingMillAssemblySubCategory;
 import com.mrh0.createaddition.compat.jei.RollingMillAssemblySubCategory;
 import com.mrh0.createaddition.compat.rei.ReiRollingMillAssemblySubCategory;
 import com.mrh0.createaddition.index.CABlocks;
@@ -11,7 +12,8 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -27,10 +29,10 @@ import java.util.Set;
 public class RollingRecipe extends ProcessingRecipe<RecipeWrapper> implements IAssemblyRecipe {
 
     @SuppressWarnings("deprecation")
-    public static RecipeSerializer<?> SERIALIZER = Registry.RECIPE_SERIALIZER.get(new ResourceLocation(CreateAddition.MODID, "rolling"));
-    protected final ItemStack output;
+    public static RecipeSerializer<?> SERIALIZER = BuiltInRegistries.RECIPE_SERIALIZER.get(new ResourceLocation(CreateAddition.MODID, "rolling"));
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
+    protected final ItemStack output;
 
     protected RollingRecipe(Ingredient ingredient, ItemStack output, ResourceLocation id) {
         super(new RollingRecipeInfo(id, (SequencedAssemblyRollingRecipeSerializer) SERIALIZER, CARecipes.ROLLING_TYPE.get()), new RollingMillRecipeParams(id, ingredient, new ProcessingOutput(output, 1f)));
@@ -64,7 +66,7 @@ public class RollingRecipe extends ProcessingRecipe<RecipeWrapper> implements IA
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv, RegistryAccess access) {
         return this.output;
     }
 
@@ -74,7 +76,7 @@ public class RollingRecipe extends ProcessingRecipe<RecipeWrapper> implements IA
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess access) {
         return this.output;
     }
 
@@ -120,6 +122,9 @@ public class RollingRecipe extends ProcessingRecipe<RecipeWrapper> implements IA
 
     @Override
     public SequencedAssemblySubCategoryType getJEISubCategory() {
-        return new SequencedAssemblySubCategoryType(() -> RollingMillAssemblySubCategory::new, () -> ReiRollingMillAssemblySubCategory::new, () -> null);
+        return new SequencedAssemblySubCategoryType(
+                () -> RollingMillAssemblySubCategory::new,
+                () -> ReiRollingMillAssemblySubCategory::new,
+                () -> EmiRollingMillAssemblySubCategory::new);
     }
 }

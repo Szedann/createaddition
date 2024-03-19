@@ -31,14 +31,17 @@
     ],
     "jei_mod_plugin": [
       "com.mrh0.createaddition.compat.jei.CreateAdditionJEI"
+    ],
+    "emi": [
+      "com.mrh0.createaddition.compat.emi.CreateAdditionEMI"
     ]
   },
   "accessWidener": "ca.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.14.13",
-    "fabric": ">=0.72.0",
-    "minecraft": "~1.19.2",
+    "fabricloader": ">=0.14.22",
+    "fabric": ">=0.87.0",
+    "minecraft": "~1.20.1",
     "registrate-fabric": "*",
     "flywheel": "*"
   }

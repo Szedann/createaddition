@@ -1,7 +1,5 @@
 package com.mrh0.createaddition.index;
 
-import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 import com.mrh0.createaddition.CreateAddition;
 import com.mrh0.createaddition.blocks.accumulator.AccumulatorBlock;
 import com.mrh0.createaddition.blocks.alternator.AlternatorBlock;
@@ -10,21 +8,20 @@ import com.mrh0.createaddition.blocks.cake.CACakeBlock;
 import com.mrh0.createaddition.blocks.connector.LargeConnectorBlock;
 import com.mrh0.createaddition.blocks.connector.SmallConnectorBlock;
 import com.mrh0.createaddition.blocks.connector.SmallLightConnectorBlock;
-import com.mrh0.createaddition.blocks.crops.HarmfulPlantBlock;
+import com.mrh0.createaddition.blocks.creative_energy.CreativeEnergyBlock;
 import com.mrh0.createaddition.blocks.digital_adapter.DigitalAdapterBlock;
-import com.mrh0.createaddition.blocks.digital_adapter.DigitalAdapterDisplaySource;
 import com.mrh0.createaddition.blocks.digital_adapter.DigitalAdapterBlockItem;
+import com.mrh0.createaddition.blocks.digital_adapter.DigitalAdapterDisplaySource;
+import com.mrh0.createaddition.blocks.electric_motor.ElectricMotorBlock;
+import com.mrh0.createaddition.blocks.liquid_blaze_burner.LiquidBlazeBurnerBlock;
 import com.mrh0.createaddition.blocks.modular_accumulator.*;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlock;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceMovement;
-import com.mrh0.createaddition.energy.NodeMovementBehaviour;
-import com.mrh0.createaddition.blocks.creative_energy.CreativeEnergyBlock;
-import com.mrh0.createaddition.blocks.electric_motor.ElectricMotorBlock;
-import com.mrh0.createaddition.blocks.liquid_blaze_burner.LiquidBlazeBurnerBlock;
 import com.mrh0.createaddition.blocks.redstone_relay.RedstoneRelayBlock;
 import com.mrh0.createaddition.blocks.rolling_mill.RollingMillBlock;
 import com.mrh0.createaddition.blocks.tesla_coil.TeslaCoilBlock;
 import com.mrh0.createaddition.config.Config;
+import com.mrh0.createaddition.energy.NodeMovementBehaviour;
 import com.mrh0.createaddition.groups.ModGroup;
 import com.mrh0.createaddition.item.BiomassPelletBlock;
 import com.simibubi.create.AllMovementBehaviours;
@@ -34,20 +31,15 @@ import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.foundation.item.TooltipModifier;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import static com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours.assignDataBehaviour;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MaterialColor;
 
 import static com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours.assignDataBehaviour;
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
@@ -59,7 +51,7 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 public class CABlocks {
 
 	static {
-		CreateAddition.REGISTRATE.creativeModeTab(()->ModGroup.MAIN);
+		CreateAddition.REGISTRATE.setCreativeTab(ModGroup.MAIN_KEY);
 	}
 
 	public static final BlockEntry<ElectricMotorBlock> ELECTRIC_MOTOR = CreateAddition.REGISTRATE.block("electric_motor", ElectricMotorBlock::new)
@@ -116,11 +108,11 @@ public class CABlocks {
 			.transform(customItemModel())
 			.register();
 
-	public static final BlockEntry<AccumulatorBlock> ACCUMULATOR = CreateAddition.REGISTRATE.block("accumulator",  AccumulatorBlock::new)
+	public static final BlockEntry<AccumulatorBlock> ACCUMULATOR = (BlockEntry<AccumulatorBlock>) CreateAddition.REGISTRATE.block("accumulator",  AccumulatorBlock::new)
 			.initialProperties(SharedProperties::softMetal)
 			.onRegister(AllMovementBehaviours.movementBehaviour(new NodeMovementBehaviour()))
 			.item()
-			.tab(() -> null)
+			.tab(null)
 			.transform(customItemModel())
 			.register();
 
@@ -179,7 +171,7 @@ public class CABlocks {
 
 	public static final BlockEntry<LiquidBlazeBurnerBlock> LIQUID_BLAZE_BURNER = CreateAddition.REGISTRATE.block("liquid_blaze_burner",  LiquidBlazeBurnerBlock::new)
 			.initialProperties(SharedProperties::softMetal)
-			.properties(p -> p.color(MaterialColor.COLOR_GRAY))
+			.properties(p -> p.mapColor(DyeColor.GRAY))
 			.properties(p -> p.lightLevel(BlazeBurnerBlock::getLight))
 			.transform(pickaxeOnly())
 			.addLayer(() -> RenderType::cutoutMipped)
@@ -201,7 +193,7 @@ public class CABlocks {
 
 	public static final BlockEntry<Block> BIOMASS_PALLET = CreateAddition.REGISTRATE.block("biomass_pellet_block", Block::new)
 			.initialProperties(() -> Blocks.DRIED_KELP_BLOCK)
-			.properties(p -> p.color(MaterialColor.COLOR_GRAY))
+			.properties(p -> p.mapColor(DyeColor.GRAY))
 			.item(BiomassPelletBlock::new)
 			.transform(customItemModel())
 			.register();
@@ -209,7 +201,7 @@ public class CABlocks {
 	public static final BlockEntry<DigitalAdapterBlock> DIGITAL_ADAPTER = CreateAddition.REGISTRATE.block("digital_adapter",  DigitalAdapterBlock::new)
 			.initialProperties(SharedProperties::softMetal)
 			.onRegister(assignDataBehaviour(new DigitalAdapterDisplaySource(), "digital_adapter"))
-			.properties(p -> p.color(MaterialColor.COLOR_GRAY))
+			.properties(p -> p.mapColor(DyeColor.GRAY))
 			.item(DigitalAdapterBlockItem::new)
 			.transform(customItemModel())
 			.register();

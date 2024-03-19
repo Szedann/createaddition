@@ -166,7 +166,7 @@
 	"block.createaddition.barbed_wire.tooltip.summary": "通り抜ける時にダメージを与えます。",
 	"block.createaddition.tesla_coil": "テスラコイル",
 	"block.createaddition.liquid_blaze_burner": "ストロー付きブレイズバーナー",
-	"itemGroup.createaddition:main": "Create Crafts & Additions",
+	"itemGroup.createaddition.main": "Create Crafts & Additions",
 	"createaddition.ponder.tag.electric": "電気機器",
 	"createaddition.ponder.tag.electric.description": "電気を扱う機械",
 	"createaddition.ponder.electric_motor.header": "電動モーターによる回転力の生成",

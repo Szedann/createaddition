@@ -56,8 +56,8 @@ public class RollingMillBlock extends HorizontalKineticBlock implements IBE<Roll
 
 		withBlockEntityDo(worldIn, pos, rollingMill -> {
 			boolean emptyOutput = true;
-			ItemStackHandler inv = rollingMill.outputInv;
-			for (int slot = 0; slot < inv.getSlots(); slot++) {
+			ItemStackHandler inv = rollingMill.inventory;
+			for (int slot = 0; slot < inv.getSlotCount(); slot++) {
 				ItemStack stackInSlot = inv.getStackInSlot(slot);
 				if (!stackInSlot.isEmpty())
 					emptyOutput = false;
@@ -66,8 +66,8 @@ public class RollingMillBlock extends HorizontalKineticBlock implements IBE<Roll
 			}
 
 			if (emptyOutput) {
-				inv = rollingMill.inputInv;
-				for (int slot = 0; slot < inv.getSlots(); slot++) {
+				inv = rollingMill.inventory;
+				for (int slot = 0; slot < inv.getSlotCount(); slot++) {
 					player.getInventory().placeItemBackInInventory(inv.getStackInSlot(slot));
 					inv.setStackInSlot(slot, ItemStack.EMPTY);
 				}
@@ -84,7 +84,7 @@ public class RollingMillBlock extends HorizontalKineticBlock implements IBE<Roll
 	public void updateEntityAfterFallOn(@NotNull BlockGetter worldIn, @NotNull Entity entityIn) {
 		super.updateEntityAfterFallOn(worldIn, entityIn);
 
-		if (entityIn.level.isClientSide)
+		if (entityIn.level().isClientSide)
 			return;
 		if (!(entityIn instanceof ItemEntity itemEntity))
 			return;
@@ -98,29 +98,25 @@ public class RollingMillBlock extends HorizontalKineticBlock implements IBE<Roll
 		if (rollingMill == null)
 			return;
 
-		Storage<ItemVariant> storage = TransferUtil.getItemStorage(rollingMill);
-		if (storage == null)
-			return;
+		BlockPos pos = entityIn.blockPosition().below();
+		RollingMillBlockEntity be = (RollingMillBlockEntity) entityIn.level().getBlockEntity(pos);
+		if (be == null) return;
+		if (be.getSpeed() == 0) return;
+		be.insertItem((ItemEntity) entityIn);
 
-		ItemStack remainder = itemEntity.getItem().copy();
-		remainder.setCount((int) (remainder.getCount() - TransferUtil.insertItem(storage, itemEntity.getItem())));
-		if (remainder.isEmpty())
-			itemEntity.remove(RemovalReason.KILLED);
-		if (remainder.getCount() < itemEntity.getItem().getCount())
-			itemEntity.setItem(remainder);
 	}
 
-	@Override
+	/*@Override
 	public void onRemove(BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (state.hasBlockEntity() && state.getBlock() != newState.getBlock()) {
 			withBlockEntityDo(worldIn, pos, te -> {
-				ItemHelper.dropContents(worldIn, pos, te.inputInv);
+				ItemHelper.dropContents(worldIn, pos, te.);
 				ItemHelper.dropContents(worldIn, pos, te.outputInv);
 			});
 
 			worldIn.removeBlockEntity(pos);
 		}
-	}
+	}*/
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

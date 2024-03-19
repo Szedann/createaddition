@@ -565,7 +565,6 @@ public interface IWireNode {
 		if(wn1.getConnectorType() == ConnectorType.Large && wn2.getConnectorType() == ConnectorType.Large) {
 			if(type == WireType.COPPER) return WireConnectResult.REQUIRES_HIGH_CURRENT;
 		}
-		
 		wn1.setNode(node1, node2, wn2.getPos(), type);
 		wn2.setNode(node2, node1, wn1.getPos(), type);
 		return WireConnectResult.getLink(wn2.isNodeInput(node2), wn2.isNodeOutput(node2));
@@ -601,7 +600,7 @@ public interface IWireNode {
 		if (ln == null) return null;
 		return ln.getType();
 	}
-	
+
 	static IWireNode getWireNode(Level world, BlockPos pos) {
 		if(pos == null)
 			return null;

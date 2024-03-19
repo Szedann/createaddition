@@ -14,7 +14,6 @@ import com.mrh0.createaddition.network.EnergyNetworkPacket;
 import com.mrh0.createaddition.network.IObserveTileEntity;
 import com.mrh0.createaddition.network.ObservePacket;
 import com.mrh0.createaddition.util.IComparatorOverride;
-
 import com.mrh0.createaddition.util.Util;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;

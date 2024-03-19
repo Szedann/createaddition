@@ -19,6 +19,7 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import com.simibubi.create.infrastructure.config.AllConfigs;
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import io.github.fabricators_of_create.porting_lib.event.common.ModsLoadedCallback;
 import me.pepperbell.simplenetworking.SimpleChannel;
 import net.fabricmc.api.ModInitializer;
@@ -28,7 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,13 +70,12 @@ public class CreateAddition implements ModInitializer{
 
         CommandRegistrationCallback.EVENT.register(CCApiCommand::register);
 
-        ModLoadingContext.registerConfig(MODID, ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+        ForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, Config.COMMON_CONFIG);
         Config.loadConfig(Config.COMMON_CONFIG, FabricLoader.getInstance().getConfigDir().resolve("createaddition-common.toml"));
 
         IE_ACTIVE = FabricLoader.getInstance().isModLoaded("immersiveengineering");
         CC_ACTIVE = FabricLoader.getInstance().isModLoaded("computercraft");
         AE2_ACTIVE = FabricLoader.getInstance().isModLoaded("ae2");
-        new ModGroup("main");
         CAArmInteractions.register();
         CABlocks.register();
         CABlockEntities.register();
@@ -86,6 +85,7 @@ public class CreateAddition implements ModInitializer{
         CARecipes.register();
         CASounds.register();
         CASchedule.register();
+        ModGroup.register();
         REGISTRATE.register();
 
         //  Setup events
@@ -106,6 +106,10 @@ public class CreateAddition implements ModInitializer{
 			if (value.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING)) return 1;
 			return 0;
     	});
+
+        if(CC_ACTIVE){
+            ComputerCraftCompat.registerCompat();
+        }
     }
 
     public static ResourceLocation asResource(String path) {

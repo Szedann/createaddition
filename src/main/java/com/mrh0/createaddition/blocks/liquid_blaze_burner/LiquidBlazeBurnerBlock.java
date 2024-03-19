@@ -14,10 +14,10 @@ import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.foundation.block.IBE;
 
-import io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer;
 import io.github.fabricators_of_create.porting_lib.transfer.callbacks.TransactionCallback;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
@@ -70,12 +70,6 @@ public class LiquidBlazeBurnerBlock extends HorizontalDirectionalBlock implement
 			return;
 		BasinBlockEntity basin = (BasinBlockEntity) tileEntity;
 		basin.notifyChangeOfContents();
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
-		list.add(AllItems.EMPTY_BLAZE_BURNER.asStack());
-		super.fillItemCategory(group, list);
 	}
 
 	@Override

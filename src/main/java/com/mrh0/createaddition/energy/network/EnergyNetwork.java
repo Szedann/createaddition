@@ -11,12 +11,12 @@ import net.minecraft.world.level.Level;
 public class EnergyNetwork {
 	private int id;
 	// Input
-	private int inBuff;
-	private int inDemand;
+	private long inBuff;
+	private long inDemand;
 	// Output
-	private int outBuff;
-	private int outBuffRetained;
-	private int outDemand;
+	private long outBuff;
+	private long outBuffRetained;
+	private long outDemand;
 	private boolean valid;
 	
 	private int pulled = 0;
@@ -24,7 +24,7 @@ public class EnergyNetwork {
 
 	private int nodeCount = 0;
 
-	private static final int MAX_BUFF = 80000;
+	private static final long MAX_BUFF = 80000;
 	public EnergyNetwork(Level world) {
 		this.inBuff = 0;
 		this.outBuff = 0;
@@ -35,13 +35,13 @@ public class EnergyNetwork {
 		EnergyNetworkManager.instances.get(world).add(this);
 	}
 
-	public int getMaxBuff() {
+	public long getMaxBuff() {
 		return Math.min(nodeCount * (outDemand + inDemand * 2 + 10), MAX_BUFF);
 	}
 
 	public void tick(int index) {
 		this.id = index;
-		int t = outBuff;
+		long t = outBuff;
 		outBuff = inBuff;
 		outBuffRetained = outBuff;
 		inBuff = t;
@@ -76,7 +76,7 @@ public class EnergyNetwork {
 		return demand;
 	}
 	
-	public int getDemand() {
+	public long getDemand() {
 		return outDemand;
 	}
 	
@@ -130,7 +130,7 @@ public class EnergyNetwork {
 	}
 	
 	public void removed() {}
-	
+
 	public int getId() {
 		return id;
 	}

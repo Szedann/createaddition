@@ -2,7 +2,9 @@ package com.mrh0.createaddition.index;
 
 import com.mrh0.createaddition.CreateAddition;
 import com.mrh0.createaddition.recipe.charging.ChargingRecipe;
+import com.mrh0.createaddition.recipe.charging.ChargingRecipeProcessingFactory;
 import com.mrh0.createaddition.recipe.charging.ChargingRecipeSerializer;
+import com.mrh0.createaddition.recipe.charging.SequencedAssemblyChargingRecipeSerializer;
 import com.mrh0.createaddition.recipe.liquid_burning.LiquidBurningRecipe;
 import com.mrh0.createaddition.recipe.liquid_burning.LiquidBurningRecipeSerializer;
 import com.mrh0.createaddition.recipe.rolling.RollingRecipe;
@@ -12,6 +14,7 @@ import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -19,9 +22,9 @@ import java.util.function.Supplier;
 
 public class CARecipes {
 	public static final LazyRegistrar<RecipeSerializer<?>> SERIALIZERS =
-			LazyRegistrar.create(Registry.RECIPE_SERIALIZER, CreateAddition.MODID);
+			LazyRegistrar.create(Registries.RECIPE_SERIALIZER, CreateAddition.MODID);
 
-	public static final LazyRegistrar<RecipeType<?>> RECIPE_TYPES = LazyRegistrar.create(Registry.RECIPE_TYPE, CreateAddition.MODID);
+	public static final LazyRegistrar<RecipeType<?>> RECIPE_TYPES = LazyRegistrar.create(Registries.RECIPE_TYPE, CreateAddition.MODID);
 	private static <T extends Recipe<?>> Supplier<RecipeType<T>> register(String id) {
 		return RECIPE_TYPES.register(id, () -> new RecipeType<>() {
 			public String toString() {
@@ -36,7 +39,7 @@ public class CARecipes {
 
 	public static final Supplier<RecipeType<ChargingRecipe>> CHARGING_TYPE = register("charging");
 	static RegistryObject<RecipeSerializer<?>> CHARGING = SERIALIZERS.register("charging", () ->
-			new ChargingRecipeSerializer());
+			new SequencedAssemblyChargingRecipeSerializer(new ChargingRecipeProcessingFactory()));
 
 	public static final Supplier<RecipeType<LiquidBurningRecipe>> LIQUID_BURNING_TYPE = register("liquid_burning");
 	static RegistryObject<RecipeSerializer<?>> LIQUID_BURNING = SERIALIZERS.register("liquid_burning", () ->

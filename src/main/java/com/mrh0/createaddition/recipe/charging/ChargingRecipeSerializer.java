@@ -38,7 +38,7 @@ public class ChargingRecipeSerializer extends CARecipeSerializer<ChargingRecipe>
 		int maxChargeRate = Integer.MAX_VALUE;
 		if(json.has("maxChargeRate")) maxChargeRate = json.get("maxChargeRate").getAsInt();
 		int energy = json.get("energy").getAsInt();
-		ItemStack output = readOutput(json.get("result"));
+		ItemStack output = readOutput(json.getAsJsonObject("result"));
 		Ingredient input = Ingredient.fromJson(json.get("input"));
 		return new ChargingRecipe(recipeId, input, output, energy, maxChargeRate);
 	}

@@ -274,7 +274,7 @@ public abstract class AbstractConnectorBlockEntity extends SmartBlockEntity impl
 
 	private void networkTick(EnergyNetwork network) {
 		ConnectorMode mode = getMode();
-		if(level == null) return;
+        if(level == null) return;
 		if(level.isClientSide()) return;
 
 		if (mode == ConnectorMode.Push) {
